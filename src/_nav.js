@@ -1,49 +1,36 @@
 import React from 'react'
 import CIcon from '@coreui/icons-react'
-import {
-  cilBell,
-  cilCalculator,
-  cilChartPie,
-  cilCursor,
-  cilDescription,
-  cilDrop,
-  cilExternalLink,
-  cilNotes,
-  cilPencil,
-  cilPuzzle,
-  cilSpeedometer,
-  cilStar,
-} from '@coreui/icons'
-import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react'
+import { cilChartPie, cilSpeedometer } from '@coreui/icons'
+import { CNavItem } from '@coreui/react'
 
 const _nav = [
   {
     component: CNavItem,
     name: 'Dashboard',
-    to: '/dashboard',
+    to: '/loanadmin/dashboard',
     icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
     badge: {
       color: 'info',
       text: 'NEW',
     },
   },
-  
+
   {
     component: CNavItem,
     name: 'Country',
-    to: '/country',
+    to: '/loanadmin/country',
     icon: <CIcon icon={cilChartPie} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,
     name: 'Add Website',
-    to: '/addwebsite',
+    to: '/loanadmin/addwebsite',
     icon: <CIcon icon={cilChartPie} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,
     name: 'User list',
-    to: '/userlist',
+    to: '/loanadmin/userlist',
     icon: <CIcon icon={cilChartPie} customClassName="nav-icon" />,
   },
 ]

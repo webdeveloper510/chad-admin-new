@@ -79,7 +79,7 @@ const AddWebsite = () => {
       console.log('Website added successfully:', response)
 
       if (response.status === 201) {
-        navigate("/dashboard")
+        navigate("/loanadmin/dashboard")
         toast.success('Website added successfully!')
         setFormData({
           url: '',
