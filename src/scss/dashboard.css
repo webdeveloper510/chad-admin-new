@@ -1,0 +1,49 @@
+
+th.ervice_provider {
+    width: 250px !important;
+    min-width: 250px !important;
+    max-width: 250px !important;
+}
+  
+  .custom_data {
+    width: 250px !important;
+    min-width: 250px !important;
+    max-width: 250px !important;
+}
+
+
+
+  .custom_data div {
+    word-wrap: break-word;
+    word-break: break-word;
+  }
+  th.url {
+    width: 300px !important;
+    min-width: 300px !important;
+    max-width: 300px !important;
+}
+  td, 
+th, 
+.CTableDataCell, 
+.CTableHeaderCell {
+  word-break: break-word;
+  white-space: normal;
+  overflow-wrap: break-word;
+}
+
+th.Country {
+    width: 130px !important;
+    min-width: 130px !important;
+    max-width: 130px !important;
+}
+th.sr_no {
+    width: 100px !important;
+    min-width: 100px !important;
+    max-width: 100px !important;
+}
+td, th, .CTableDataCell, .CTableHeaderCell {
+    word-break: break-word;
+    white-space: normal;
+    overflow-wrap: break-word;
+    font-size: 15px;
+}

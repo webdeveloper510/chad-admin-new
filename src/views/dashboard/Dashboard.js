@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import '../../scss/dashboard.css';
 import {
   CTable,
   CTableHead,
@@ -42,14 +43,14 @@ const Dashboard = () => {
         <h2 className="title_tb">Submitted Websites</h2>
       </CCardHeader>
       <CCardBody>
-        <CTable striped hover responsive>
+        <CTable striped hover responsive submited_table>
           <CTableHead>
             <CTableRow>
-              <CTableHeaderCell scope="col">Sr No</CTableHeaderCell>
-              <CTableHeaderCell scope="col">Country</CTableHeaderCell>
-              <CTableHeaderCell scope="col">URL</CTableHeaderCell>
-              <CTableHeaderCell scope="col">Service Provider</CTableHeaderCell>
-              <CTableHeaderCell scope="col">Custom Data</CTableHeaderCell>
+              <CTableHeaderCell scope="col" className="sr_no">Sr No</CTableHeaderCell>
+              <CTableHeaderCell scope="col" className="Country">Country</CTableHeaderCell>
+              <CTableHeaderCell scope="col" className="url">Url</CTableHeaderCell>
+              <CTableHeaderCell scope="col" className="ervice_provider">Service Provider</CTableHeaderCell>
+              <CTableHeaderCell scope="col" className="custom_data">Custom Data</CTableHeaderCell>
             </CTableRow>
           </CTableHead>
           <CTableBody>
