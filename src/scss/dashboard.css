@@ -47,3 +47,12 @@ td, th, .CTableDataCell, .CTableHeaderCell {
     overflow-wrap: break-word;
     font-size: 15px;
 }
+.table-responsive {
+    max-height: 600px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.card-body {
+    padding: 10px 0px 10px 10px !important;
+    width: 99%;
+}
