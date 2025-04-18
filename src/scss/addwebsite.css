@@ -1,0 +1,185 @@
+/* Form Container */
+.form-container {
+    max-width: 850px;
+    margin: 40px auto;
+    background: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  }
+  
+  /* Heading */
+  .form-title {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 24px;
+    color: #111827;
+  }
+  
+  /* Form Group */
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+    color: #374151;
+  }
+  
+  .form-group input,
+  .form-group select {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 6px;
+    border: 1px solid #d1d5db;
+    font-size: 14px;
+    background-color: #fff;
+    color: #111827;
+  }
+  
+  .form-group input::placeholder {
+    color: #9ca3af;
+  }
+  
+  /* Section Title */
+  .section-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 30px 0 16px;
+    color: #111827;
+  }
+  
+  /* Field Wrapper */
+  .field-block {
+    background-color: #f9fafb;
+    border: 1px solid #e5e7eb;
+    padding: 20px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+  }
+  
+  /* Field Row Layout */
+  .field-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  
+  .field-col {
+    flex: 1;
+    min-width: 250px;
+  }
+  
+  /* Remove Field Button */
+  .remove-btn {
+    color: #e53935;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    background: none;
+    border: none;
+    padding: 0;
+    margin-top: 4px;
+    cursor: pointer;
+  }
+  
+  .remove-btn:hover {
+    color: #b71c1c;
+  }
+  
+  .remove-btn i {
+    margin-right: 6px;
+  }
+  
+  /* Add Button */
+  .add-btn {
+    background: none;
+    color: #00c853;
+    border: none;
+    padding: 0;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    margin-top: 6px;
+  }
+  
+  .add-btn i {
+    margin-right: 6px;
+  }
+  
+  .add-btn:hover {
+    color: #00b248;
+  }
+  
+  /* Submit Button */
+  .submit-btn {
+    background-color: #2962ff;
+    color: white;
+    padding: 10px 24px;
+    border-radius: 6px;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 16px;
+  }
+  
+  .submit-btn:hover {
+    background-color: #0039cb;
+  }
+  
+  .submit-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+  .add_web h2 {
+    color: #000;
+    font-size: 24px;
+    font-weight: 700;
+}
+.add_web label {
+    color: #374151;
+    font-size: 16px;
+}  
+.mt-6.extra-fields {
+    margin-top: 30px;
+}
+.ad_fields {
+  border: none;
+  margin-bottom: 23px;
+  background: none;
+  color: #22c55e;
+  font-weight: 600;
+}
+.sbt_btn {
+    padding: 10px 30px;
+    width: auto;
+    --tw-text-opacity: 1;
+    color: rgb(255 255 255 / var(--tw-text-opacity));
+    --tw-bg-opacity: 1;
+    background-color: rgb(59 130 246 / var(--tw-bg-opacity));
+    border: 1px solid #3b82f6;
+}
+.grey_bg {
+    --tw-bg-opacity: 1;
+    background-color: rgb(249 250 251);
+}
+.rounded-md {
+  border-radius: .375rem;
+}
+.extra-fields h3 {
+  color: #000;
+  font-size: 20px;
+  font-weight: 600;
+}
+.remove_field {
+  color: #ef4444;
+  border: none;
+  background: #f9fafb;
+  padding: 0;
+}

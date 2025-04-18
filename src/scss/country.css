@@ -1,0 +1,158 @@
+/* Table container for spacing and responsiveness */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+body {
+  font-family: 'Poppins', sans-serif;
+}
+.table,
+.table th,
+.table td {
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Container styling */
+.country-container {
+  background-color: #fff;
+  padding: 24px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.05);
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* Title styling */
+.country-container h2 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+/* Table styling */
+.country-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.country-table th,
+.country-table td {
+  padding: 12px;
+  text-align: center;
+  border: 1px solid #e0e0e0;
+}
+
+.country-table th {
+  background-color: #e9ecf1;
+  font-weight: 600;
+}
+
+/* Delete icon */
+.delete-icon {
+  cursor: pointer;
+  color: red;
+  font-size: 18px;
+  transition: transform 0.2s;
+}
+
+.delete-icon:hover {
+  transform: scale(1.1);
+}
+
+/* Add Country Button */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  background-color: #2f80ed;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.btn:hover {
+  background-color: #2563eb;
+}
+
+.btn.cancel {
+  background-color: #6c757d;
+}
+
+.btn.cancel:hover {
+  background-color: #5a6268;
+}
+
+/* Modal styling */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 24px;
+  border-radius: 10px;
+  width: 300px;
+  max-width: 90%;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+}
+
+.modal-header {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.modal input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 16px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+.modal-content {
+  background-color: #fff;
+  padding: 24px;
+  border-radius: 10px;
+  width: 600px;
+  max-width: 90%;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+}
+.add_web {
+  background-color: #fff;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  padding: 1.5rem;
+}
+
+.country-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.country-table th,
+.country-table td {
+  border: 1px solid #e2e8f0;
+  padding: 0.75rem 1rem;
+  text-align: left;
+  text-align: center;
+}

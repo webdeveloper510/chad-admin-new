@@ -1,0 +1,99 @@
+@use "@coreui/coreui/scss/coreui" as * with ( 
+  $enable-deprecation-messages: false,
+);
+@use "@coreui/chartjs/scss/coreui-chartjs";
+@use "vendors/simplebar";
+
+body {
+  background-color: var(--cui-tertiary-bg);
+}
+
+.wrapper {
+  width: 100%;
+  padding-inline: var(--cui-sidebar-occupy-start, 0) var(--cui-sidebar-occupy-end, 0);
+  will-change: auto;
+  @include transition(padding .15s);
+}
+
+.header > .container-fluid,
+.sidebar-header {
+  min-height: calc(4rem + 1px); // stylelint-disable-line function-disallowed-list
+}
+
+.sidebar-brand-full {
+  margin-left: 3px;
+}
+
+.sidebar-header {
+  .nav-underline-border {
+    --cui-nav-underline-border-link-padding-x: 1rem;
+    --cui-nav-underline-border-gap: 0;
+  }
+
+  .nav-link {
+    display: flex;
+    align-items: center;
+    min-height: calc(4rem + 1px); // stylelint-disable-line function-disallowed-list
+  }
+}
+
+.sidebar-toggler {
+  margin-inline-start: auto;
+}
+
+.sidebar-narrow,
+.sidebar-narrow-unfoldable:not(:hover) {
+  .sidebar-toggler {
+    margin-inline-end: auto;
+  }
+}
+
+.header > .container-fluid + .container-fluid {
+  min-height: 3rem;
+}
+
+.footer {
+  min-height: calc(3rem + 1px); // stylelint-disable-line function-disallowed-list
+}
+
+@include color-mode(dark) {
+  body {
+    background-color: var(--cui-dark-bg-subtle);
+  }
+
+  .footer {
+    --cui-footer-bg: var(--cui-body-bg);
+  }
+}
+
+.sidebar.sidebar-dark.sidebar-fixed.border-end {
+  background: #162525 !important;
+}
+.sidebar-nav .nav-link.active {
+  color: var(--cui-sidebar-nav-link-active-color);
+  background: #243a3a80;
+  border: 1px solid #243A3A;
+}
+.sidebar-nav .nav-link:hover {
+  background: #243a3a80;
+  border: 1px solid #243A3A;
+}
+button.bg-blue-500.text-white.p-2.rounded-md.flex.items-center.space-x-2.hover\:bg-blue-600 {
+  background: #162525;
+  border: 1px solid #162525;
+  border-radius: 12px;
+}
+button.text-red-500.hover\:text-red-700 {
+  border: none;
+  background: transparent;
+}
+thead, tbody, tfoot, tr, td, th {
+  border-color: inherit;
+  border-style: solid;
+  border-width: 1px;
+}
+  h2.title_tb {
+    margin-bottom: 0px;
+    font-size: 24px;
+    line-height: 30px;
+}
