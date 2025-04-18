@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   CTable,
   CTableHead,
@@ -10,74 +10,36 @@ import {
   CCardBody,
   CCardHeader,
 } from '@coreui/react'
+import { getWebsites } from '../../api'
 
 const Dashboard = () => {
-  // Static Data
-  const submittedWebsites = [
-    {
-      country: 'India',
-      url: 'https://www.springfinancial.ca/',
-      serviceProvider: 'Spring Financiallaaasss',
-      customData: [
-        {
-          loan_type: 'New York',
-          loan_amount: 'John Doe',
-          loan_interest: '2001',
-        },
-        {
-          loan_type: 'New York NEW yokr',
-          loan_amount: 'John DOM',
-          loan_interest: '0226',
-        },
-        {
-          loan_type: 'type1',
-          loan_amount: 'test1',
-          loan_interest: 'value1',
-        },
-      ],
-    },
-    {
-      country: 'Germany',
-      url: 'https://www.w3.org/Provider/Style/dummy.html',
-      serviceProvider: 'test',
-      customData: [],
-    },
-    {
-      country: 'United Kingdom',
-      url: 'https://google.com',
-      serviceProvider: 'redestretyg',
-      customData: [],
-    },
-    {
-      country: 'Germany',
-      url: 'https://google.com/new',
-      serviceProvider: 'Test service',
-      customData: [],
-    },
-    {
-      country: 'United Kingdom',
-      url: 'https://www.w3.org/Provider/Style/dummy.html',
-      serviceProvider: 'test',
-      customData: [],
-    },
-    {
-      country: 'Pakistan',
-      url: 'https://www.springfinanciall.ca/',
-      serviceProvider: 'Spring',
-      customData: [
-        {
-          loan_type: 'string',
-          loan_amount: 'State',
-          loan_interest: '',
-        },
-      ],
-    },
-  ]
+
+  const [websites, setWebsites] = useState([])
+  const [loading, setLoading] = useState(true) // Loader state
+
+  useEffect(() => {
+    const fetchWebsites = async () => {
+      try {
+        const response = await getWebsites()
+        if (response.status == 200) {
+          setWebsites(response.data)
+        } else {
+          setWebsites([])
+        }
+      } catch (error) {
+        console.error('Error fetching websites:', error)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchWebsites()
+  }, [])
 
   return (
     <CCard className="mb-4">
       <CCardHeader>
-      <h2 className='title_tb'>Submitted Websites</h2>
+        <h2 className="title_tb">Submitted Websites</h2>
       </CCardHeader>
       <CCardBody>
         <CTable striped hover responsive>
@@ -91,32 +53,30 @@ const Dashboard = () => {
             </CTableRow>
           </CTableHead>
           <CTableBody>
-            {submittedWebsites.map((item, index) => (
+            {websites?.reverse()?.map((item, index) => (
               <CTableRow key={index}>
                 <CTableDataCell>{index + 1}</CTableDataCell>
-                <CTableDataCell>{item.country}</CTableDataCell>
+                <CTableDataCell>{item?.country_name}</CTableDataCell>
                 <CTableDataCell>
-                  <a href={item.url} target="_blank" rel="noopener noreferrer">
-                    {item.url}
+                  <a href={item?.website_url} target="_blank" rel="noopener noreferrer">
+                    {item?.website_url}
                   </a>
                 </CTableDataCell>
-                <CTableDataCell>{item.serviceProvider}</CTableDataCell>
+                <CTableDataCell>{item?.finance_company_name?.company_name}</CTableDataCell>
                 <CTableDataCell>
-                  {item.customData.length === 0 ? (
-                    'No Custom Data'
-                  ) : (
-                    item.customData.map((cd, i) => (
-                      <div
-                        key={i}
-                        className="mb-2 p-2 bg-light border rounded"
-                        style={{ fontSize: '0.9rem' }}
-                      >
-                        <strong>Loan Type:</strong> {cd.loan_type} <br />
-                        <strong>Loan Amount:</strong> {cd.loan_amount} <br />
-                        <strong>Interest Rate:</strong> {cd.loan_interest}
-                      </div>
-                    ))
-                  )}
+                  {item?.finance_company_name?.custom_data?.length === 0
+                    ? 'No Custom Data'
+                    : item?.finance_company_name?.custom_data?.map((cd, i) => (
+                        <div
+                          key={i}
+                          className="mb-2 p-2 bg-light border rounded"
+                          style={{ fontSize: '0.9rem' }}
+                        >
+                          <strong>Loan Type:</strong> {cd.loan_type} <br />
+                          <strong>Loan Amount:</strong> {cd.loan_amount} <br />
+                          <strong>Interest Rate:</strong> {cd.interest_rate}
+                        </div>
+                      ))}
                 </CTableDataCell>
               </CTableRow>
             ))}

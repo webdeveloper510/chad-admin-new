@@ -1,12 +1,29 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import '../../scss/userlist.css' // Ensure this file has the CSS from previous steps
+import { getAppUsers } from '../../api';
 
 const UserList = () => {
-  const [users, setUsers] = useState([
-    { email: 'user1@example.com', active: true },
-    { email: 'user2@example.com', active: false },
-    { email: 'user3@example.com', active: true },
-  ])
+  const [userData, setUserData] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    getUsersData();
+  }, []);
+
+  const getUsersData = async () => {
+    setLoading(true);
+    try {
+      const response = await getAppUsers();
+      if (response.status == 200) {
+        setUserData(response.data.data);
+      } else {
+        setUserData([]);
+      }
+    } catch (error) {
+      console.error("Error fetching userData:", error);
+    }
+    setLoading(false);
+  };
 
   const [showModal, setShowModal] = useState(false)
   const [newEmail, setNewEmail] = useState('')
@@ -29,9 +46,9 @@ const UserList = () => {
   }
 
   const toggleStatus = (index) => {
-    const updated = [...users]
-    updated[index].active = !updated[index].active
-    setUsers(updated)
+    const updated = [...userData]
+    // updated[index].active = !updated[index].active
+    // setUsers(updated)
   }
 
   return (
@@ -48,16 +65,17 @@ const UserList = () => {
             </tr>
           </thead>
           <tbody>
-            {users.map((user, idx) => (
+            {userData?.map((user, idx) => (
               <tr key={idx}>
                 <td>{idx + 1}</td>
-                <td>{user.email}</td>
+                <td>{user?.email}</td>
                 <td>
                   <label className="switch">
                     <input
                       type="checkbox"
-                      checked={user.active}
-                      onChange={() => toggleStatus(idx)}
+                      value={user?.is_active}
+                      checked={user?.is_active}
+                      onChange={() => toggleStatus(user?.id)}
                     />
                     <span className="slider round"></span>
                   </label>
@@ -68,9 +86,9 @@ const UserList = () => {
         </table>
 
         <br />
-        <button className="btn add-user" onClick={() => setShowModal(true)}>
+        {/* <button className="btn add-user" onClick={() => setShowModal(true)}>
           ➕ Add User
-        </button>
+        </button> */}
       </div>
 
       {showModal && (

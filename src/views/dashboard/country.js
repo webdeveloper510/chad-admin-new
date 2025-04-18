@@ -1,29 +1,67 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../../scss/country.css';
-
-// Font Awesome imports
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { addcountry, deleteCountry, getcountry } from '../../api';
 
 function Country() {
-  const [countries, setCountries] = useState(['india', 'canada', 'japan']);
+  const [countries, setCountries] = useState([]);
   const [showModal, setShowModal] = useState(false);
-  const [newCountry, setNewCountry] = useState('');
+  const [newCountry, setNewCountry] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const addCountry = () => {
-    if (newCountry.trim() === '') {
-      alert('Please enter a country name.');
-      return;
-    }
-    setCountries([...countries, newCountry.trim()]);
-    setNewCountry('');
+  const openModal = () => setShowModal(true);
+  const closeModal = () => {
     setShowModal(false);
+    setNewCountry("");
   };
 
-  const deleteCountry = (index) => {
-    const updated = [...countries];
-    updated.splice(index, 1);
-    setCountries(updated);
+  const addCountry = async () => {
+    setLoading(true);
+    try {
+      let payload = { country_name: newCountry };
+      await addcountry(payload);
+      toast.success("Country added successfully!");
+      closeModal();
+      getCountry();
+    } catch (error) {
+      toast.error(error.message);
+    }
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    getCountry();
+  }, []);
+
+  const getCountry = async () => {
+    setLoading(true);
+    try {
+      const response = await getcountry();
+      if(response?.data?.status == 200){
+        setCountries(response.data.data);
+      }else{
+        setCountries([])
+      }
+    } catch (error) {
+      console.error("Error fetching countries:", error);
+    }
+    setLoading(false);
+  };
+
+  const handleDeleteCountry = async (id) => {
+    setLoading(true);
+    try {
+      await deleteCountry(id);
+      toast.success("Country deleted successfully!");
+      setCountries((prev) => prev.filter((country) => country.id !== id));
+      closeModal();
+    } catch (error) {
+      toast.error(error.message || "Failed to delete country.");
+    }
+    setLoading(false);
   };
 
   return (
@@ -38,12 +76,12 @@ function Country() {
           </tr>
         </thead>
         <tbody>
-          {countries.map((country, idx) => (
+          {countries?.map((country, idx) => (
             <tr key={idx}>
               <td>{idx + 1}</td>
-              <td>{country}</td>
+              <td>{country?.name}</td>
               <td>
-                <span className="delete-icon" onClick={() => deleteCountry(idx)}>
+                <span className="delete-icon" onClick={() => handleDeleteCountry(country?.id)}>
                   <FontAwesomeIcon icon={faTrash} />
                 </span>
               </td>
