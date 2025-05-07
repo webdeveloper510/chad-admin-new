@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import '../../scss/addwebsite.css'
-import { addWebsite, getcountry, updateFinanceData } from '../../api'
+import { updateFinanceData, getcountry } from '../../api'
 import { toast } from 'react-toastify'
 import { useNavigate, useLocation } from 'react-router-dom'
-import { useParams } from 'react-router-dom'
+
 const loanTypes = ['Personal Loan', 'Home Loan', 'Car Loan', 'Business Loan', 'Education Loan']
-const AddWebsite = () => {
+
+const EditWebsite = () => {
   const navigate = useNavigate()
-  const { id } = useParams()
+  const location = useLocation()
   const websiteData = location.state?.websiteData
+  console.log("🚀 ~ EditWebsite ~ websiteData:", websiteData)
 
   const [formData, setFormData] = useState({
     website_url: '',
@@ -21,34 +23,34 @@ const AddWebsite = () => {
     interest_rate: ''
   })
 
-  const [extraFields, setExtraFields] = useState([])
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState(null)
   const [countries, setCountries] = useState([])
   const [validationErrors, setValidationErrors] = useState({})
-  const [isEditMode, setIsEditMode] = useState(false)
 
   useEffect(() => {
-    getCountry()
-    if (websiteData && websiteData._id) {
-      setIsEditMode(true)
-      setFormData({
-        website_url: websiteData.website_url || '',
-        country: websiteData.country || '',
-        loan_type: websiteData.loan_type || '',
-        min_credit_score: websiteData.min_credit_score || '',
-        max_credit_score: websiteData.max_credit_score || '',
-        min_amount: websiteData.min_amount || '',
-        max_amount: websiteData.max_amount || '',
-        interest_rate: websiteData.interest_rate || ''
-      })
+    if (!websiteData) {
+      toast.error('No website data found for editing')
+      navigate('/loanadmin/dashboard')
+      return
     }
-  }, [websiteData])
+    setFormData({
+      website_url: websiteData.website_url || '',
+      country: websiteData.country || '',
+      loan_type: websiteData.loan_type || '',
+      min_credit_score: websiteData.min_credit_score || '',
+      max_credit_score: websiteData.max_credit_score || '',
+      min_amount: websiteData.min_amount || '',
+      max_amount: websiteData.max_amount || '',
+      interest_rate: websiteData.interest_rate || ''
+    })
+
+    getCountry()
+  }, [websiteData, navigate])
 
   const getCountry = async () => {
     try {
       const response = await getcountry()
-      console.log("🚀 ~ getCountry ~ response:", response)
       if (response?.data?.status == 200) {
         setCountries(response.data.data)
       }
@@ -63,14 +65,6 @@ const AddWebsite = () => {
     if (validationErrors[name]) {
       setValidationErrors(prev => ({ ...prev, [name]: '' }))
     }
-  }
-
-  const addField = () => {
-    setExtraFields([...extraFields, { id: Date.now() }])
-  }
-
-  const removeField = (index) => {
-    setExtraFields(extraFields.filter((_, i) => i !== index))
   }
   
   const validateForm = () => {
@@ -88,6 +82,8 @@ const AddWebsite = () => {
         errors.website_url = 'Please enter a valid URL (e.g., https://example.com)'
       }
     }
+
+
     setValidationErrors(errors)
     return Object.keys(errors).length === 0
   }
@@ -108,41 +104,16 @@ const AddWebsite = () => {
         interest_rate: Number(parseFloat(formData.interest_rate).toFixed(1))
       };
 
-      let response;
-      
-      // If in edit mode, update existing website
-      if (isEditMode && websiteData._id) {
-        response = await updateFinanceData(websiteData._id, dataToSubmit)
-        
-        if (response.status === 200) {
-          toast.success('Website updated successfully!')
-          navigate("/loanadmin/dashboard")
-        }
-      } 
-      // Otherwise, add new website
-      else {
-        response = await addWebsite(dataToSubmit)
-        
-        if (response.status === 201) {
-          navigate("/loanadmin/dashboard")
-          toast.success('Website added successfully!')
-          setFormData({
-            website_url: '',
-            country: '',
-            loan_type: '',
-            min_credit_score: '',
-            max_credit_score: '',
-            min_amount: '',
-            max_amount: '',
-            interest_rate: ''
-          })
-          setExtraFields([])
-        }
+      const response = await updateFinanceData(websiteData.id, dataToSubmit)
+
+      if (response.status === 200) {
+        toast.success('Website updated successfully!')
+        navigate("/loanadmin/dashboard")
       }
     } catch (err) {
-      console.error('Submission error:', err)
-      setError(isEditMode ? 'Failed to update website. Please try again.' : 'Failed to add website. Please try again.')
-      toast.error(isEditMode ? 'Failed to update website. Please try again.' : 'Failed to add website. Please try again.')
+      console.error('Update error:', err)
+      setError('Failed to update website. Please try again.')
+      toast.error('Failed to update website. Please try again.')
     } finally {
       setIsSubmitting(false)
     }
@@ -150,7 +121,7 @@ const AddWebsite = () => {
 
   return (
     <div className="add_web max-w-4xl mx-auto mt-10 p-4 bg-white shadow-lg rounded-md">
-      <h2 className="text-2xl font-semibold mb-4">{isEditMode ? 'Edit Website' : 'Add Website'}</h2>
+      <h2 className="text-2xl font-semibold mb-4">Edit Website</h2>
 
       {error && <div className="bg-red-100 text-red-700 px-4 py-2 rounded mb-4">{error}</div>}
 
@@ -160,7 +131,7 @@ const AddWebsite = () => {
           <label className="block text-gray-700 mb-1">Country:<span className="text-red-500">*</span></label>
           <select
             name="country"
-            value={formData.country}
+            value={formData.country.toLowerCase()}
             onChange={handleChange}
             className={`w-100 border p-2 rounded-md ${validationErrors.country ? 'border-red-500' : ''}`}
           >
@@ -171,9 +142,7 @@ const AddWebsite = () => {
               </option>
             ))}
           </select>
-          {validationErrors.country && (
-            <p className="text-red-500 text-sm mt-1">{validationErrors.country}</p>
-          )}
+         
         </div>
 
         {/* Website URL */}
@@ -187,18 +156,12 @@ const AddWebsite = () => {
             placeholder="https://example.com"
             className={`w-100 border p-2 rounded-md ${validationErrors.website_url ? 'border-red-500' : ''}`}
           />
-          {validationErrors.website_url && (
-            <p className="text-red-500 text-sm mt-1">{validationErrors.website_url}</p>
-          )}
+         
         </div>
 
         {/* Loan Details Section */}
         <div className="mt-6">
-          <h3 className="text-xl font-semibold mb-3">
-            {isEditMode ? 'Loan Details' : 'Additional Fields'}
-          </h3>
-
-          {/* First field always visible, it's the actual form data we'll send */}
+          <h3 className="text-xl font-semibold mb-3">Loan Details</h3>
           <div className="border p-4 bg-gray-50 rounded-md mb-3 grey_bg">
             <div className="grid grid-cols-1 gap-4">
               {/* Loan Type */}
@@ -217,7 +180,7 @@ const AddWebsite = () => {
                     </option>
                   ))}
                 </select>
-
+               
               </div>
 
               {/* Credit Score Range */}
@@ -244,7 +207,7 @@ const AddWebsite = () => {
                     placeholder="Maximum Credit Score"
                     className={`w-100 border p-2 rounded-md ${validationErrors.max_credit_score ? 'border-red-500' : ''}`}
                   />
-           
+                  
                 </div>
               </div>
 
@@ -260,7 +223,7 @@ const AddWebsite = () => {
                     placeholder="Minimum Amount"
                     className={`w-100 border p-2 rounded-md ${validationErrors.min_amount ? 'border-red-500' : ''}`}
                   />
-             
+                  
                 </div>
                 <div className="w-50">
                   <label className="block text-gray-700 mb-1">Max Amount:<span className="text-red-500">*</span></label>
@@ -272,7 +235,7 @@ const AddWebsite = () => {
                     placeholder="Maximum Amount"
                     className={`w-100 border p-2 rounded-md ${validationErrors.max_amount ? 'border-red-500' : ''}`}
                   />
-               
+                 
                 </div>
               </div>
 
@@ -288,11 +251,10 @@ const AddWebsite = () => {
                   step="0.01"
                   className={`w-100 border p-2 rounded-md ${validationErrors.interest_rate ? 'border-red-500' : ''}`}
                 />
-              
+
               </div>
             </div>
           </div>
-
         </div>
 
         {/* Action Buttons */}
@@ -304,22 +266,20 @@ const AddWebsite = () => {
               isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
             }`}
           >
-            {isSubmitting ? (isEditMode ? 'Updating...' : 'Submitting...') : (isEditMode ? 'Update' : 'Submit')}
+            {isSubmitting ? 'Updating...' : 'Update'}
           </button>
           
-          {isEditMode && (
-            <button
-              type="button"
-              onClick={() => navigate('/loanadmin/dashboard')}
-              className="bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400"
-            >
-              Cancel
-            </button>
-          )}
+          <button
+            type="button"
+            onClick={() => navigate('/loanadmin/dashboard')}
+            className="bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400"
+          >
+            Cancel
+          </button>
         </div>
       </form>
     </div>
   )
 }
 
-export default AddWebsite
+export default EditWebsite

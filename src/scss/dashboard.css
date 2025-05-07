@@ -56,3 +56,9 @@ td, th, .CTableDataCell, .CTableHeaderCell {
     padding: 10px 0px 10px 10px !important;
     width: 99%;
 }
+.delete_modal {
+  margin-top: 150px;
+}
+.submited_tb button.btn:hover {
+  color: #fff;
+}

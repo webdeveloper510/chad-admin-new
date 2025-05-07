@@ -2,6 +2,7 @@ import React from 'react'
 import Country from './views/dashboard/country'
 import AddWebsite from './views/dashboard/addwebsite'
 import UserList from './views/dashboard/userlist'
+import EditWebsite from './views/dashboard/edit-website'
 
 
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
@@ -15,6 +16,7 @@ const routes = [
   { path: '/loanadmin/countyList', name: 'Country list', element: CountryList},
   { path: '/loanadmin/country', name: 'Country list', element: Country},
   { path: '/loanadmin/addwebsite', name: 'Add Website', element: AddWebsite},
+  {path:'/loanadmin/edit-website', name: 'Edit Website', element: EditWebsite},
   { path: '/loanadmin/userlist', name: 'User list', element: UserList},  
 ]
 

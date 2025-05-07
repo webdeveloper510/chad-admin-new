@@ -66,3 +66,28 @@ export const getAppUsers = async () => {
     return error;
   }
 };
+export const updateFinanceData = async (financeId, updateData) => {
+  try {
+    const response = await axios.patch(`${API_URL}/update-finance-data/${financeId}`, updateData);
+    return response;
+  } catch (error) {
+    console.error(
+      "Error updating finance data:", 
+      error.response ? error.response.data : error.message
+    );
+    throw error;
+  }
+};
+
+export const deleteFinanceData = async (item_id) => {
+  try {
+    const response = await axios.delete(`${API_URL}/delete-finance-data/${item_id}`);
+    return response;
+  } catch (error) {
+    console.error(
+      "Error deleting finance data:", 
+      error.response ? error.response.data : error.message
+    );
+    throw error;
+  }
+};

@@ -23,7 +23,13 @@ body {
 .sidebar-brand-full {
   margin-left: 3px;
 }
-
+body.modal-open .modal-backdrop.fade.show {
+  opacity: 0;
+  z-index: 999;
+}
+.delete_modal{
+  margin-top: 150px !important;
+}
 .sidebar-header {
   .nav-underline-border {
     --cui-nav-underline-border-link-padding-x: 1rem;
