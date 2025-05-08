@@ -120,7 +120,7 @@ const Dashboard = () => {
                         <strong>Loan Amount Maximum:</strong> {item.max_amount} <br />
                         <strong>Credit Score Minimum:</strong> {item.min_credit_score} <br />
                         <strong>Credit Score Maximum:</strong> {item.max_credit_score} <br />
-                        <strong>Interest Rate:</strong> {item.interest_rate}
+                        <strong>Interest Rate:</strong> {parseFloat(item.interest_rate).toFixed(1)}
                       </div>
                     </CTableDataCell>
                     <CTableDataCell>
