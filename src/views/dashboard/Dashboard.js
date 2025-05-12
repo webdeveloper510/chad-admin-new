@@ -100,7 +100,7 @@ const Dashboard = () => {
                   <CTableHeaderCell scope="col" className="custom_data">
                     Custom Data
                   </CTableHeaderCell>
-                  <CTableHeaderCell scope="col">Actions</CTableHeaderCell>
+                  <CTableHeaderCell scope="col" className="custom_action">Actions</CTableHeaderCell>
                 </CTableRow>
               </CTableHead>
               <CTableBody>
@@ -124,10 +124,10 @@ const Dashboard = () => {
                       </div>
                     </CTableDataCell>
                     <CTableDataCell>
-                      <button className="btn btn-sm btn-warning me-2" onClick={() => handleEdit(item)}>
+                      <button className="btn btn-sm btn-warning me-2 Edit_btn" onClick={() => handleEdit(item)}>
                         Edit
                       </button>
-                      <button className="btn btn-sm btn-danger" onClick={() => confirmDelete(item.id)}>
+                      <button className="btn btn-sm btn-danger delete_btn" onClick={() => confirmDelete(item.id)}>
                         Delete
                       </button>
                     </CTableDataCell>

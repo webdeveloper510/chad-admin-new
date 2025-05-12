@@ -18,9 +18,14 @@ th.ervice_provider {
     word-break: break-word;
   }
   th.url {
-    width: 300px !important;
-    min-width: 300px !important;
-    max-width: 300px !important;
+    width: 250px !important;
+    min-width: 250px !important;
+    max-width: 250px !important;
+}
+th.custom_action {
+    width: 200px !important;
+    min-width: 200px !important;
+    max-width: 200px !important;
 }
   td, 
 th, 
@@ -47,10 +52,15 @@ td, th, .CTableDataCell, .CTableHeaderCell {
     overflow-wrap: break-word;
     font-size: 15px;
 }
-.table-responsive {
+/* .table-responsive {
     max-height: 600px;
     overflow-y: auto;
     overflow-x: hidden;
+} */
+.table-responsive {
+    max-height: 600px;
+    overflow-y: auto;
+    overflow-x: scroll;
 }
 .card-body {
     padding: 10px 0px 10px 10px !important;

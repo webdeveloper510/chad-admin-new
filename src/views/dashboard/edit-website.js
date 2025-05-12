@@ -161,7 +161,7 @@ const EditWebsite = () => {
 
         {/* Loan Details Section */}
         <div className="mt-6">
-          <h3 className="text-xl font-semibold mb-3">Loan Details</h3>
+          <h3 className="text-xl font-semibold mb-3 mt-4">Loan Details</h3>
           <div className="border p-4 bg-gray-50 rounded-md mb-3 grey_bg">
             <div className="grid grid-cols-1 gap-4">
               {/* Loan Type */}
