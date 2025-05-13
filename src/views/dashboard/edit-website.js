@@ -103,8 +103,10 @@ const EditWebsite = () => {
     try {
       const dataToSubmit = {
         ...formData,
-        interest_rate: Number(parseFloat(formData.interest_rate).toFixed(1))
+        interest_rate: Number(parseFloat(formData.interest_rate).toFixed(1)),
       };
+
+      console.log(dataToSubmit, "Here ")
 
       const response = await updateFinanceData(websiteData.id, dataToSubmit)
 
@@ -233,7 +235,7 @@ const EditWebsite = () => {
                   <input
                     type="number"
                     name="min_amount"
-                    value={formData.min_amount}
+                    value={formData.min_amount.replace("$", "")}
                     onChange={handleChange}
                     placeholder="Minimum Amount"
                     className={`w-100 border p-2 rounded-md ${validationErrors.min_amount ? 'border-red-500' : ''}`}
@@ -245,7 +247,7 @@ const EditWebsite = () => {
                   <input
                     type="number"
                     name="max_amount"
-                    value={formData.max_amount}
+                    value={formData.max_amount.replace("$", "")}
                     onChange={handleChange}
                     placeholder="Maximum Amount"
                     className={`w-100 border p-2 rounded-md ${validationErrors.max_amount ? 'border-red-500' : ''}`}

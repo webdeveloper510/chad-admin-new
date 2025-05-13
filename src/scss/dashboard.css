@@ -42,9 +42,9 @@ th.Country {
     max-width: 130px !important;
 }
 th.sr_no {
-    width: 100px !important;
-    min-width: 100px !important;
-    max-width: 100px !important;
+    width: 500px !important;
+    min-width: 60px !important;
+    max-width: 60px !important;
 }
 td, th, .CTableDataCell, .CTableHeaderCell {
     word-break: break-word;
