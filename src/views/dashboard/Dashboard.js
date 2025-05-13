@@ -94,6 +94,9 @@ const Dashboard = () => {
                   <CTableHeaderCell scope="col" className="Country">
                     Country
                   </CTableHeaderCell>
+                  <CTableHeaderCell scope="col" className="finance_name">
+                   Finance Name
+                  </CTableHeaderCell>
                   <CTableHeaderCell scope="col" className="url">
                     Url
                   </CTableHeaderCell>
@@ -108,6 +111,7 @@ const Dashboard = () => {
                   <CTableRow key={item._id}>
                     <CTableDataCell>{index + 1}</CTableDataCell>
                     <CTableDataCell>{item?.country}</CTableDataCell>
+                    <CTableDataCell>{item.website_name}</CTableDataCell>
                     <CTableDataCell>
                       <a href={item?.website_url} target="_blank" rel="noopener noreferrer">
                         {item?.website_url}

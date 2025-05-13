@@ -12,6 +12,7 @@ const AddWebsite = () => {
 
   const [formData, setFormData] = useState({
     website_url: '',
+    website_name: '', 
     country: '',
     loan_type: '',
     min_credit_score: '',
@@ -34,6 +35,7 @@ const AddWebsite = () => {
       setIsEditMode(true)
       setFormData({
         website_url: websiteData.website_url || '',
+        website_name: websiteData.website_name || '', 
         country: websiteData.country || '',
         loan_type: websiteData.loan_type || '',
         min_credit_score: websiteData.min_credit_score || '',
@@ -88,6 +90,11 @@ const AddWebsite = () => {
         errors.website_url = 'Please enter a valid URL (e.g., https://example.com)'
       }
     }
+
+    if (!formData.website_name.trim()) {
+      errors.website_name = 'Website Name is required'
+    }
+    
     setValidationErrors(errors)
     return Object.keys(errors).length === 0
   }
@@ -107,10 +114,10 @@ const AddWebsite = () => {
         ...formData,
         interest_rate: Number(parseFloat(formData.interest_rate).toFixed(1))
       };
+      console.log("🚀 ~ handleSubmit ~ dataToSubmit:", dataToSubmit)
 
       let response;
       
-      // If in edit mode, update existing website
       if (isEditMode && websiteData._id) {
         response = await updateFinanceData(websiteData._id, dataToSubmit)
         
@@ -119,7 +126,6 @@ const AddWebsite = () => {
           navigate("/loanadmin/dashboard")
         }
       } 
-      // Otherwise, add new website
       else {
         response = await addWebsite(dataToSubmit)
         
@@ -128,6 +134,7 @@ const AddWebsite = () => {
           toast.success('Website added successfully!')
           setFormData({
             website_url: '',
+            website_name: '', // Reset website_name field
             country: '',
             loan_type: '',
             min_credit_score: '',
@@ -173,6 +180,22 @@ const AddWebsite = () => {
           </select>
           {validationErrors.country && (
             <p className="text-red-500 text-sm mt-1">{validationErrors.country}</p>
+          )}
+        </div>
+
+        {/* Website Name - New Field */}
+        <div className="mt-4">
+          <label className="block text-gray-700 mb-1">Website Name:<span className="text-red-500">*</span></label>
+          <input
+            type="text"
+            name="website_name"
+            value={formData.website_name}
+            onChange={handleChange}
+            placeholder="Enter Website Name"
+            className={`w-100 border p-2 rounded-md ${validationErrors.website_name ? 'border-red-500' : ''}`}
+          />
+          {validationErrors.website_name && (
+            <p className="text-red-500 text-sm mt-1">{validationErrors.website_name}</p>
           )}
         </div>
 

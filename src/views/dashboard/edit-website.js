@@ -14,6 +14,7 @@ const EditWebsite = () => {
 
   const [formData, setFormData] = useState({
     website_url: '',
+    website_name: '',
     country: '',
     loan_type: '',
     min_credit_score: '',
@@ -37,6 +38,7 @@ const EditWebsite = () => {
     setFormData({
       website_url: websiteData.website_url || '',
       country: websiteData.country || '',
+      website_name: websiteData.website_name || '',
       loan_type: websiteData.loan_type || '',
       min_credit_score: websiteData.min_credit_score || '',
       max_credit_score: websiteData.max_credit_score || '',
@@ -144,7 +146,20 @@ const EditWebsite = () => {
           </select>
          
         </div>
-
+        <div className="mt-4">
+          <label className="block text-gray-700 mb-1">Website Name:<span className="text-red-500">*</span></label>
+          <input
+            type="text"
+            name="website_name"
+            value={formData.website_name}
+            onChange={handleChange}
+            placeholder="Enter Website Name"
+            className={`w-100 border p-2 rounded-md ${validationErrors.website_name ? 'border-red-500' : ''}`}
+          />
+          {validationErrors.website_name && (
+            <p className="text-red-500 text-sm mt-1">{validationErrors.website_name}</p>
+          )}
+        </div>
         {/* Website URL */}
         <div className="mt-4">
           <label className="block text-gray-700 mb-1">Website URL:<span className="text-red-500">*</span></label>
