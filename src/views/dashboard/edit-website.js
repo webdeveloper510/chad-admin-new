@@ -104,6 +104,8 @@ const EditWebsite = () => {
       const dataToSubmit = {
         ...formData,
         interest_rate: Number(parseFloat(formData.interest_rate).toFixed(1)),
+        min_amount: formData.min_amount.replace("$", ""),
+        max_amount: formData.max_amount.replace("$", "")
       };
 
       console.log(dataToSubmit, "Here ")
